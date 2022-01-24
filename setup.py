@@ -13,7 +13,7 @@ setup(
         author_email="<yyl.eli@gmail.com>",
         description=DESCRIPTION,
         long_description=LONG_DESCRIPTION,
-        packages=find_packages(),
+        packages=find:,
         install_requires=[], # add any additional packages that
         # needs to be installed along with your package. Eg: 'caer'
 
