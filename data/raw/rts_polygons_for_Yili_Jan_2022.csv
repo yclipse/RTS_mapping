@@ -2,7 +2,7 @@
 #date: Jan 2022
 #region: yamal and gydan
 #description:'yes/maybe/no=1,2,3' category, active/general regions
-#Version:raw data v2.0
+#Version:raw data
 OID_,Id,area_km2,CreationDa,EditDate,code_id,Long,Lat,Act_or_Gen
 0,0,0.00587585,10/22/2020 0:00,10/22/2020 0:00,1,68.38716337,69.96710548,Active
 1,1,0.003526616,10/22/2020 0:00,10/22/2020 0:00,2,68.38769478,69.96667661,

@@ -8,7 +8,7 @@ def gen_random_offset(offset=0.005):
     return (np.random.random_sample() - np.random.random_sample()) * offset  # (-0.005,0.005)
 
 
-def gen_roi(long, lat, length=0.1):
+def gen_roi(long, lat, lenght=0.1):
     '''
     Generate an ROI rectangle with upperleft coord and bottomright coord from a centroid
     '''
