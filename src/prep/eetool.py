@@ -15,7 +15,7 @@ def gen_roi_geometry(long, lat):
     return geometry
 
 
-def band_to_arr(basemap, band: string, roi):
+def band_to_arr(basemap, band: str, roi):
     '''
     basemap:ee.Image
     roi:ee.Geometry
@@ -25,3 +25,6 @@ def band_to_arr(basemap, band: string, roi):
     band_roi = basemap.sampleRectangle(region=roi)
     band_arr = band_roi.get(band)
     return np.array(band_arr.getInfo())
+
+
+print('fj')
