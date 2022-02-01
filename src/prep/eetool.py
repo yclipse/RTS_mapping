@@ -1,5 +1,6 @@
 import ee
 import numpy as ee
+import prep.utils
 
 
 def gen_roi_geometry(long, lat):
@@ -25,6 +26,3 @@ def band_to_arr(basemap, band: str, roi):
     band_roi = basemap.sampleRectangle(region=roi)
     band_arr = band_roi.get(band)
     return np.array(band_arr.getInfo())
-
-
-print('fj')
