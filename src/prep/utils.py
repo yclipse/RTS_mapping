@@ -1,31 +1,32 @@
 import numpy as np
+import random
 
 
-def gen_random_offset(offset=0.005):
-    '''
-    Generate random offset in lat/long degrees
-    '''
-    return (np.random.random_sample() - np.random.random_sample()) * offset  # (-0.005,0.005)
+# def gen_random_offset(offset=0.005):
+#     '''
+#     Generate random offset in lat/long degrees
+#     '''
+#     return (np.random.random_sample() - np.random.random_sample()) * offset  # (-0.005,0.005)
 
 
-def gen_roi(long, lat, length=0.01):
+def gen_roi(lon, lat, length=0.01):
     '''
     Generate an ROI rectangle with upperleft coord and bottomright coord from a centroid
     length unit in deg
     '''
-    offset = gen_random_offset()
+    offset = random.uniform(-length / 2, length / 2)
 
-    # (long1,lat1): up left corner (-0.1,0)
+    # (long1,lat1): up left corner (-0.01,0)
     lat1 = lat + offset - length / 2
-    long1 = long + (offset - length / 2)  # *2.67   #longitude correction
+    lon1 = lon + offset - length / 2  # *2.67   #longitude correction
 
-    # (long2,lat2): bottom right corner (0,0.1)
+    # (long2,lat2): bottom right corner (0,0.01)
     lat2 = lat + offset + length / 2
-    long2 = long + (offset + length / 2)  # *2.67   #longitude correction
+    lon2 = lon + offset + length / 2  # *2.67   #longitude correction
 
     # print ('diagonal distance (m)=',functions.measure(long1,lat1,long2,lat2))
     # print ('coords1=[',long1,lat1,'],coords2=[',long2,lat2)
-    return long1, lat1, long2, lat2
+    return lon1, lat1, lon2, lat2
 
 
 def normalise_uint8(arr):
