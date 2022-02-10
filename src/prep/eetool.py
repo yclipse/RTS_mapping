@@ -31,6 +31,3 @@ def band_to_arr(basemap, band: str, roi):
 
 def ee_to_tfrecord():
     return
-
-
-def visualise_ee
