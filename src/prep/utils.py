@@ -29,13 +29,13 @@ def gen_roi(lon, lat, length=0.01):
     return lon1, lat1, lon2, lat2
 
 
-def normalise_uint8(arr):
+def normalise_01(arr):
     '''
-    Normalise a nparray to 0-255 in uint8
+    Normalise a nparray to 0-1
     '''
     numerator = arr - arr.min()
     denominator = 1 / (arr.max() - arr.min())
-    return (numerator * denominator * 255).astype(np.uint8)
+    return (numerator * denominator)
 
 
 def pad_arr(img, side_len=280):

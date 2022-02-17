@@ -1,8 +1,8 @@
-#content: woodwell rts polygon coordinates
-#date: Nov 2021
-#region: yamal and gydan
-#description:'yes' category only, active regions only
-#Version=1.0
+# content: woodwell rts polygon coordinates
+# date: Nov 2021
+# region: yamal and gydan
+# description:'yes' category only, active regions only
+# Version=1.0
 Long,Lat
 68.38716337,69.96710548
 68.33613371,69.96529284
