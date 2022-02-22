@@ -11,8 +11,10 @@ import random
 
 def gen_roi(lon, lat, length=0.01):
     '''
+
     Generate an ROI rectangle with upperleft coord and bottomright coord from a centroid
     length unit in deg
+
     '''
     offset = random.uniform(-length / 2, length / 2)
 
@@ -31,7 +33,9 @@ def gen_roi(lon, lat, length=0.01):
 
 def normalise(arr):
     '''
+
     Normalise an np.array to 0-1
+
     '''
     numerator = arr - arr.min()
     denominator = arr.max() - arr.min()
@@ -40,23 +44,29 @@ def normalise(arr):
 
 def pad_arr(img, side_len=280):
     '''
+
     pad nparrays to a fixed shape (square)
+
     '''
     if img.ndim == 3:  # if the image is rgb
         # print ('padding an rgb image')
         shape = np.zeros((side_len, side_len, 3))
         for channel in range(img.shape[-1]):
             shape[:img.shape[0], :img.shape[1], channel] = img[..., channel]
+
     else:  # 1 channel - label
         # print ('padding a label image')
         shape = np.zeros((side_len, side_len))
         shape[:img.shape[0], :img.shape[1]] = img
+
     return shape
 
 
 def reshape_labels(ls):
     '''
+
     convert numerical labels to one-hot encoded labels
+
     '''
     out = np.zeros((ls.shape[0], ls.shape[1], ls.shape[2], 2))  # split background and forground
     for i in range(ls.shape[0]):
