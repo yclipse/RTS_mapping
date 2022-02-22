@@ -4,7 +4,7 @@ import prep.utils
 #
 
 
-def gen_roi_geometry(long, lat, lenght=0.01, proj='EPSG:4326'):
+def gen_roi_geometry(long, lat, length=0.01, proj='EPSG:4326'):
     '''
     Generate GEE roi geometry polygon using centroid
     '''
@@ -53,7 +53,8 @@ def multidirectional_hillshade(DEM, w_n=0.125, w_ne=0.125, w_e=0.125, w_se=0.125
 def shaded_relief(slope, hillshade, w_slope=0.5, w_hillshade=0.5):
     '''
 
-    Mosaic hillshade and slope raster to a single image, which will produce the Shaded Relief, using the ee.ImageCollection.mosaic.
+    Mosaic hillshade and slope raster to a single image
+    which will produce the Shaded Relief, using the ee.ImageCollection.mosaic.
 
     '''
     sr = ee.ImageCollection([
@@ -62,3 +63,22 @@ def shaded_relief(slope, hillshade, w_slope=0.5, w_hillshade=0.5):
     ]).mosaic()
 
     return sr
+
+
+def rel_dem(DEM, kernel_size=15):
+    '''
+
+    Calculate local mean of DEM using ee.Image.reduceNeighborhood
+    Applies a mean reducer to the neighborhood around each pixel,
+    as determined by the given kernel.
+
+    return: relative DEM
+
+    '''
+    local_mean = DEM.reduceNeighborhood(
+        reducer=ee.Reducer.mean(),
+        kernel=ee.Kernel.square(kernel_size, 'meters'),
+    )
+    rel_dem = DEM.subtract(local_mean)
+
+    return rel_dem
