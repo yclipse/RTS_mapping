@@ -23,15 +23,18 @@ def gen_roi_geometry(long, lat, length=0.01, proj='EPSG:4326'):
     return geometry
 
 
-def band_to_arr(basemap, band: str, roi):
+def band_to_2darray(ee_object, roi, default_value=0):
     '''
-    basemap:ee.Image
-    roi:ee.Geometry
+    basemap : ee.Image
+    roi : ee.Geometry
+    default_value(option) : value to replace empty pixels
+    Convert single band image to np.array (2d)
 
-    Convert selected band to np.array (2d)
     '''
-    band_roi = basemap.sampleRectangle(region=roi, defaultValue=0)
-    band_arr = band_roi.get(band)
+
+    band_roi = ee_object.sampleRectangle(region=roi, defaultValue=default_value)
+    band_arr = band_roi.get(ee_object.bandNames().getInfo()[0])
+
     return np.array(band_arr.getInfo())
 
 
@@ -85,7 +88,7 @@ def rel_dem(DEM, kernel_size=15):
     Applies a mean reducer to the neighborhood around each pixel,
     as determined by the given kernel.
 
-    return: relative DEM
+    Returns: relative DEM
 
     '''
     local_mean = DEM.reduceNeighborhood(reducer=ee.Reducer.mean(),
@@ -94,3 +97,49 @@ def rel_dem(DEM, kernel_size=15):
     rel_dem = DEM.subtract(local_mean)
 
     return rel_dem
+
+
+def bands_to_ndarray(
+    ee_object, bands=None, region=None, properties=None, default_value=None
+):
+    '''Extracts a rectangular region of pixels from an image into a 2D numpy array per band.
+    Args:
+        ee_object (object): The image to sample.
+        bands (list, optional): The list of band names to extract. Please make sure that all bands have the same spatial resolution. Defaults to None.
+        region (object, optional): The region whose projected bounding box is used to sample the image. The maximum number of pixels you can export is 262,144. Resampling and reprojecting all bands to a fixed scale can be useful. Defaults to the footprint in each band.
+        properties (list, optional): The properties to copy over from the sampled image. Defaults to all non-system properties.
+        default_value (float, optional): A default value used when a sampled pixel is masked or outside a band's footprint. Defaults to None.
+    Returns:
+        array: 3d numpy array.
+    '''
+    import numpy as np
+
+    if not isinstance(ee_object, ee.Image):
+        print("The input must be an ee.Image.")
+        return
+
+    if region is None:
+        region = ee_object.geometry()
+
+    try:
+
+        if bands is not None:
+            ee_object = ee_object.select(bands)
+        else:
+            bands = ee_object.bandNames().getInfo()
+
+        band_arrs = ee_object.sampleRectangle(
+            region=region, properties=properties, defaultValue=default_value
+        )
+        band_values = []
+
+        for band in bands:
+            band_arr = band_arrs.get(band).getInfo()
+            band_value = np.array(band_arr)
+            band_values.append(band_value)
+
+        image = np.dstack(band_values)
+        return image
+
+    except Exception as e:
+        print(e)
