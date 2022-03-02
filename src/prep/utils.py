@@ -9,14 +9,14 @@ import random
 #     return (np.random.random_sample() - np.random.random_sample()) * offset  # (-0.005,0.005)
 
 
-def gen_roi(lon, lat, length=0.01):
+def gen_roi(lon, lat, length=0.01, w_offset=0.5):
     '''
 
     Generate an ROI rectangle with upperleft coord and bottomright coord from a centroid
     length unit in deg
 
     '''
-    offset = random.uniform(-length / 2, length / 2)
+    offset = random.uniform(-length / 2, length / 2) * w_offset
 
     # (long1,lat1): up left corner (-0.01,0)
     lat1 = lat + offset - length / 2
@@ -26,8 +26,6 @@ def gen_roi(lon, lat, length=0.01):
     lat2 = lat + offset + length / 2
     lon2 = lon + offset + length / 2  # *2.67   #longitude correction
 
-    # print ('diagonal distance (m)=',functions.measure(long1,lat1,long2,lat2))
-    # print ('coords1=[',long1,lat1,'],coords2=[',long2,lat2)
     return lon1, lat1, lon2, lat2
 
 
