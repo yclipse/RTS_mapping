@@ -9,7 +9,7 @@ import random
 #     return (np.random.random_sample() - np.random.random_sample()) * offset  # (-0.005,0.005)
 
 
-def gen_roi(lon, lat, length=0.01, w_offset=0.5):
+def genRoi(lon, lat, length=0.01, w_offset=0.5):
     '''
 
     Generate an ROI rectangle with upperleft coord and bottomright coord from a centroid
@@ -40,7 +40,7 @@ def normalise(arr):
     return (numerator / denominator)
 
 
-def pad_arr(img, side_len=280):
+def padArr(img, side_len=280):
     '''
 
     pad nparrays to a fixed shape (square)
@@ -60,7 +60,7 @@ def pad_arr(img, side_len=280):
     return shape
 
 
-def reshape_labels(ls):
+def reshapeLabels(ls):
     '''
 
     convert numerical labels to one-hot encoded labels
@@ -73,7 +73,7 @@ def reshape_labels(ls):
     return out.astype('bool')
 
 
-def dstack_imgs(*arr):
+def dstack(*arr):
     '''
 
     stack N 2d images of to 1 ndarray using np.dstack

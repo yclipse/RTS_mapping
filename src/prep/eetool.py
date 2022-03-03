@@ -4,13 +4,13 @@ import prep.utils
 #
 
 
-def gen_roi_geometry(long, lat, length=0.01, proj='EPSG:4326'):
+def genRoiGeometry(long, lat, length=0.01, proj='EPSG:4326'):
     '''
 
     Generate GEE roi geometry polygon using centroid
 
     '''
-    long1, lat1, long2, lat2 = prep.utils.gen_roi(long, lat, length)
+    long1, lat1, long2, lat2 = prep.utils.genRoi(long, lat, length)
     geometry = ee.Geometry.Polygon(coords=[[[long1, lat1],
                                             [long1, lat2],
                                             [long2, lat2],
@@ -23,7 +23,7 @@ def gen_roi_geometry(long, lat, length=0.01, proj='EPSG:4326'):
     return geometry
 
 
-def band_to_2darray(ee_object, roi, default_value=0):
+def bandToArray(ee_object, roi, default_value=0):
     '''
     basemap : ee.Image
     roi : ee.Geometry
@@ -38,15 +38,15 @@ def band_to_2darray(ee_object, roi, default_value=0):
     return np.array(band_arr.getInfo())
 
 
-def multidirectional_hillshade(DEM,
-                               w_n=0.125,
-                               w_ne=0.125,
-                               w_e=0.125,
-                               w_se=0.125,
-                               w_s=0.125,
-                               w_sw=0.125,
-                               w_w=0.125,
-                               w_nw=0.125):
+def mdHillshade(DEM,
+                w_n=0.125,
+                w_ne=0.125,
+                w_e=0.125,
+                w_se=0.125,
+                w_s=0.125,
+                w_sw=0.125,
+                w_w=0.125,
+                w_nw=0.125):
     '''
 
     Using eight different traditional hillshades (input,azimuth,altitude).multiply(weight),
@@ -67,7 +67,7 @@ def multidirectional_hillshade(DEM,
     return multi_hillshade
 
 
-def shaded_relief(slope, hillshade, w_slope=0.5, w_hillshade=0.5):
+def shadedRelief(slope, hillshade, w_slope=0.5, w_hillshade=0.5):
     '''
 
     Mosaic hillshade and slope raster to a single image
@@ -81,7 +81,7 @@ def shaded_relief(slope, hillshade, w_slope=0.5, w_hillshade=0.5):
     return sr
 
 
-def rel_dem(DEM, kernel_size=15):
+def relDEM(DEM, kernel_size=15):
     '''
 
     Calculate local mean of DEM using ee.Image.reduceNeighborhood
@@ -99,7 +99,7 @@ def rel_dem(DEM, kernel_size=15):
     return rel_dem
 
 
-def bands_to_ndarray(
+def bandsToRGB(
     ee_object, bands=None, region=None, properties=None, default_value=None
 ):
     '''Extracts a rectangular region of pixels from an image into a 2D numpy array per band.
