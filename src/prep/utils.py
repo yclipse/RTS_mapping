@@ -71,18 +71,3 @@ def reshapeLabels(ls):
         out[i, ..., 0] = ~ls[i, ..., -1]  # not label
         out[i, ..., 1] = ls[i, ..., -1]  # label
     return out.astype('bool')
-
-
-def dstack(*arr):
-    '''
-
-    stack N 2d images of to 1 ndarray using np.dstack
-    for example N images of shape (W,H) will be stacked as a (W,H,N) ndarray
-
-    '''
-    for i in arr:
-        i = np.expand_dims(i, -1)
-
-    stacked_arr = np.dstack(*arr)
-
-    return stacked_arr
