@@ -81,7 +81,8 @@ def dstack(*arr):
 
     '''
     for i in arr:
-        i = np.expand_dims(i, -1)
+        if i.ndim == 2:
+            i = np.expand_dims(i, -1)
 
     stacked_arr = np.dstack(*arr)
 
