@@ -1,6 +1,6 @@
 import numpy as np
 import random
-
+import matplotlib.pyplot as plt
 
 # def gen_random_offset(offset=0.005):
 #     '''
@@ -60,7 +60,7 @@ def padArr(img, side_len=280):
     return shape
 
 
-def reshapeLabels(ls):
+def onehotLabels(ls):
     '''
 
     convert numerical labels to one-hot encoded labels
@@ -85,3 +85,19 @@ def plotim(**images):
         plt.title(' '.join(name.split('_')).title())
         plt.imshow(image)
     plt.show()
+
+
+def CropAndPad(arr, target_size):
+    '''
+
+    resize a 3d array to a fixed size with crop and pad
+
+    '''
+    def f(a): return (abs(a)+a)/2  # negative values become zero
+
+    hpad = f(target_size[0]-arr.shape[0])
+    wpad = f(target_size[1]-arr.shape[1])
+
+    pad = np.pad(arr, ((0, int(hpad)), (0, int(wpad)), (0, 0)))
+    out = pad[:target_size[0], :target_size[1], :]
+    return out
