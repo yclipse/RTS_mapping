@@ -1,6 +1,5 @@
 import numpy as np
 import random
-import matplotlib.pyplot as plt
 
 # def gen_random_offset(offset=0.005):
 #     '''
@@ -11,7 +10,6 @@ import matplotlib.pyplot as plt
 
 def genRoi(lon, lat, length=0.01, w_offset=0.5):
     '''
-
     Generate an ROI rectangle with upperleft coord and bottomright coord from a centroid
     length unit in deg
 
@@ -31,7 +29,6 @@ def genRoi(lon, lat, length=0.01, w_offset=0.5):
 
 def normalise(arr):
     '''
-
     Normalise an np.array to 0-1
 
     '''
@@ -42,7 +39,6 @@ def normalise(arr):
 
 def padArr(img, side_len=280):
     '''
-
     pad nparrays to a fixed shape (square)
 
     '''
@@ -62,7 +58,6 @@ def padArr(img, side_len=280):
 
 def onehotLabels(ls):
     '''
-
     convert numerical labels to one-hot encoded labels
 
     '''
@@ -73,23 +68,8 @@ def onehotLabels(ls):
     return out.astype('bool')
 
 
-def plotim(**images):
-    """PLot images in one row."""
-
-    n = len(images)
-    plt.figure(figsize=(16, 5))
-    for i, (name, image) in enumerate(images.items()):
-        plt.subplot(1, n, i + 1)
-        plt.xticks([])
-        plt.yticks([])
-        plt.title(' '.join(name.split('_')).title())
-        plt.imshow(image)
-    plt.show()
-
-
 def CropAndPad(arr, target_size):
     '''
-
     resize a 3d array to a fixed size with crop and pad
 
     '''
@@ -100,4 +80,12 @@ def CropAndPad(arr, target_size):
 
     pad = np.pad(arr, ((0, int(hpad)), (0, int(wpad)), (0, 0)))
     out = pad[:target_size[0], :target_size[1], :]
+    return out
+
+
+def vstack_list(lst):
+
+    for i in range(len(lst)):
+        lst[i] = np.expand_dims(lst[i], 0)
+    out = np.vstack(lst)
     return out
