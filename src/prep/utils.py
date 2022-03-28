@@ -89,3 +89,8 @@ def vstack_list(lst):
         lst[i] = np.expand_dims(lst[i], 0)
     out = np.vstack(lst)
     return out
+
+
+def rgb2gray(rgb):
+    '''convert rgb img array to grayscale'''
+    return np.dot(rgb[..., :3], [0.2989, 0.5870, 0.1140])
