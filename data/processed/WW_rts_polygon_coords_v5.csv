@@ -2,10 +2,10 @@
 # date: Mar 2022,,,,,
 # region: yamal and gydan,,,,,
 # description: 262active + 73general,,,,,
-# Added tier/question/index column. Tier is for data quality classification. 1-best, 3-worst
-# Tier1:94
-# Tier2:135
-# Tier3:106
+# Added tier/question/index column. Tier is for data quality classification. 1-best, 3-worst,,,,
+# Tier1:94,,,,,
+# Tier2:135,,,,,
+# Tier3:106,,,,,
 # Number of labels: 335,,,,,
 # Version=4.0,,,,,
 Long,Lat,type,tier,question,index
