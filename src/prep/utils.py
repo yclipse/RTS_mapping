@@ -84,6 +84,7 @@ def CropAndPad(arr, target_size):
 
 
 def vstack_list(lst):
+    'vstack a list'
 
     for i in range(len(lst)):
         lst[i] = np.expand_dims(lst[i], 0)

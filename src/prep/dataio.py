@@ -20,3 +20,15 @@ def read_files(dir, split_data=True, **kwargs):
     if split_data:
         data = split(data, **kwargs)
     return data
+
+
+def oneHotLabels(lb):
+    '''
+    convert binary labels to one-hot encoded labels
+    work with 3d array (W,H,C)
+    '''
+    out = np.zeros((lb.shape[0], lb.shape[1], 2))  # split background and forground
+
+    out[..., 0] = ~lb.astype(bool)  # not label
+    out[..., 1] = lb.astype(bool)  # label
+    return out
