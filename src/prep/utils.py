@@ -56,16 +56,16 @@ def padArr(img, side_len=280):
     return shape
 
 
-def onehotLabels(ls):
+def oneHotLabels(lb):
     '''
-    convert numerical labels to one-hot encoded labels
+    convert binary labels to one-hot encoded labels
+    work with 3d array (W,H,C)
+    '''
+    out = np.zeros((lb.shape[0], lb.shape[1], 2))  # split background and forground
 
-    '''
-    out = np.zeros((ls.shape[0], ls.shape[1], ls.shape[2], 2))  # split background and forground
-    for i in range(ls.shape[0]):
-        out[i, ..., 0] = ~ls[i, ..., -1]  # not label
-        out[i, ..., 1] = ls[i, ..., -1]  # label
-    return out.astype('bool')
+    out[..., 0] = ~lb.astype(bool)  # not label
+    out[..., 1] = lb.astype(bool)  # label
+    return out
 
 
 def CropAndPad(arr, target_size):
