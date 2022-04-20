@@ -85,7 +85,6 @@ def CropAndPad(arr, target_size):
 
 def vstack_list(lst):
     'vstack a list'
-
     for i in range(len(lst)):
         lst[i] = np.expand_dims(lst[i], 0)
     out = np.vstack(lst)
@@ -95,3 +94,10 @@ def vstack_list(lst):
 def rgb2gray(rgb):
     '''convert rgb img array to grayscale'''
     return np.dot(rgb[..., :3], [0.2989, 0.5870, 0.1140])
+
+
+def zeroCentering(arr):
+    '''normalise an array to [-1,1]'''
+    numerator = arr - arr.min()
+    denominator = arr.max() - arr.min()
+    return 2*(numerator / denominator)-1
