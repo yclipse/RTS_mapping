@@ -101,3 +101,9 @@ def zeroCentering(arr):
     numerator = arr - arr.min()
     denominator = arr.max() - arr.min()
     return 2*(numerator / denominator)-1
+
+
+def flatten(t):
+    'flatten a list'
+
+    return [item for sublist in t for item in sublist]
