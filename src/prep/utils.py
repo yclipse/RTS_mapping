@@ -103,7 +103,17 @@ def zeroCentering(arr):
     return 2*(numerator / denominator)-1
 
 
-def flatten(t):
-    'flatten a list'
-
+def flatten_list(t):
+    'flatten a list of numbers'
     return [item for sublist in t for item in sublist]
+
+
+def flatten_str_list(A):
+    'flatten a list and strings wont split'
+    rt = []
+    for i in A:
+        if isinstance(i, list):
+            rt.extend(flatten(i))
+        else:
+            rt.append(i)
+    return rt
