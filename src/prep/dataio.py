@@ -14,10 +14,10 @@ def split(dst, train_split=0.8, val_split=0.1, test_split=0.1):
     return train, val, test
 
 
-def read_files(dir, split_data=True, **kwargs):
+def ReadNpyFiles(dir, split_data=True, **kwargs):
     '''read filenames from directory'''
 
-    data = sorted(glob(os.path.join(dir, '*')))
+    data = sorted(glob(os.path.join(dir, '*.npy')))
     if split_data:
         data = split(data, **kwargs)
     return data
