@@ -10,7 +10,7 @@ def genRoiGeometry(long, lat, length=0.01, proj='EPSG:4326'):
     Generate GEE roi geometry polygon using centroid
 
     '''
-    long1, lat1, long2, lat2 = prep.utils.genRoi(long, lat, length)
+    long1, lat1, long2, lat2 = prep.utils.genRoi(long, lat, length,w_offset)
     geometry = ee.Geometry.Polygon(coords=[[[long1, lat1],
                                             [long1, lat2],
                                             [long2, lat2],
