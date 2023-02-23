@@ -4,7 +4,7 @@ import prep.utils
 #
 
 
-def genRoiGeometry(long, lat, length=0.01, proj='EPSG:4326', w_offset):
+def genRoiGeometry(long, lat, length=0.01, proj='EPSG:4326', w_offset=0.5):
     '''
 
     Generate GEE roi geometry polygon using centroid
