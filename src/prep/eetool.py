@@ -3,6 +3,25 @@ import numpy as np
 import prep.utils
 #
 
+def get_centroid(feature):
+  '''
+  Returns the centroids of a featurecollection.
+  '''
+  centroid = feature.geometry().centroid()
+  return ee.Feature(centroid).copyProperties(feature)
+
+
+def get_centroids_attributes(centroids,index):
+  '''
+  return lat,lon,id of each centroid
+  '''
+  element = centroids.toList(N_centroids).get(index)
+
+  lat = element.getInfo().get('properties').get('Lat')
+  lon = element.getInfo().get('properties').get('Long')
+  id = element.getInfo().get('id')
+  return {'Long':lon,'Lat':lat,'id':id}
+
 
 def genRoiGeometry(long, lat, length=0.01, proj='EPSG:4326', w_offset=0.5):
     '''
