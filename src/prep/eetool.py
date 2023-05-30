@@ -15,6 +15,7 @@ def get_centroids_attributes(centroids,index):
   '''
   return lat,lon,id of each centroid
   '''
+  N_centroids = centroids.size().getInfo()
   element = centroids.toList(N_centroids).get(index)
 
   lat = element.getInfo().get('properties').get('Lat')
