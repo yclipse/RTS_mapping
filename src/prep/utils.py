@@ -36,6 +36,22 @@ def normalise(arr):
     denominator = arr.max() - arr.min()
     return (numerator / denominator)
 
+def zero_centering_norm(img, axis=(0, 1), c=1e-8):
+    """
+    Normalize to zero mean and unit standard deviation along the given axis.
+    Args:
+        img (numpy or cupy): array (w, h, c)
+        axis (integer tuple): into or tuple of width and height axis
+        c (float): epsilon to bound given std value
+    Return:
+        Normalize single image
+    ----------
+    Example
+    ----------
+        image_normalize(arr, axis=(0, 1), c=1e-8)
+    """
+    return (img - img.mean(axis)) / (img.std(axis) + c)
+
 
 def padArr(img, side_len=280):
     '''
@@ -94,13 +110,6 @@ def vstack_list(lst):
 def rgb2gray(rgb):
     '''convert rgb img array to grayscale'''
     return np.dot(rgb[..., :3], [0.2989, 0.5870, 0.1140])
-
-
-def zeroCentering(arr):
-    '''normalise an array to [-1,1]'''
-    numerator = arr - arr.min()
-    denominator = arr.max() - arr.min()
-    return 2*(numerator / denominator)-1
 
 
 def flatten_list(t):
