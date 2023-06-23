@@ -36,21 +36,18 @@ def normalise(arr):
     denominator = arr.max() - arr.min()
     return (numerator / denominator)
 
-def zero_centering_norm(img, axis=(0, 1), c=1e-8):
-    """
-    Normalize to zero mean and unit standard deviation along the given axis.
-    Args:
-        img (numpy or cupy): array (w, h, c)
-        axis (integer tuple): into or tuple of width and height axis
-        c (float): epsilon to bound given std value
-    Return:
-        Normalize single image
-    ----------
-    Example
-    ----------
-        image_normalize(arr, axis=(0, 1), c=1e-8)
-    """
-    return (img - img.mean(axis)) / (img.std(axis) + c)
+def zScore(arr):
+  '''
+  convert an ndarray to z-score by channel
+  '''
+  n_channels = arr.shape[-1]
+  for i in range(n_channels):
+    channel_i = arr[...,i]
+    channel_i_mean = np.mean(channel_i)
+    channel_i_std = np.std(channel_i)
+    arr[...,i] = (channel_i-channel_i_mean)/channel_i_std
+    # arr[...,i] = channel_i-channel_i_mean
+  return arr
 
 
 def padArr(img, side_len=280):
