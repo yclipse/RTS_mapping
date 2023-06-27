@@ -1,6 +1,7 @@
 from osgeo import gdal,gdal_array
 from prep import dataio, plot, utils
 import numpy as np
+from collections import namedtuple
 
 
 def readTif(file_name):
